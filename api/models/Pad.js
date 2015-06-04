@@ -19,6 +19,13 @@ module.exports = {
     owner: {
       model: 'user'
     },
+    collaborators: {
+      type: 'array'
+    },
+    viewMode: {
+      type: 'string',
+      required: 'true'
+    }
     lastEditor: {
       type: 'string'
     }

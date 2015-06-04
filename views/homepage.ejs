@@ -8,13 +8,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Angular messages</a>
+      <a class="navbar-brand" href="#">CollabPad</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" collapse="isCollapsed">
       <ul class="nav navbar-nav">
         <li ng-show="auth.isAuthenticated()"><a href="#/messages">Messages</a></li>
+        <li ng-show="auth.isAuthenticated()"><a href="#/pads">Pads</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li ng-hide="auth.isAuthenticated()"><a href="#/login">Login</a></li>
