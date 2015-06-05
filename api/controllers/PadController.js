@@ -24,7 +24,7 @@ module.exports = {
             Pad.subscribe(req.socket, pads);
             pads ? resData.push(pads) : resData.push([]);
         });
-            return res.ok(resData);
+        return res.ok(resData);
     },
     getAllPads: function (req, res) {
         if (req.isSocket && req.method === 'GET') {
@@ -53,7 +53,32 @@ module.exports = {
                 return res.ok(result);
             })
         }
+    },
+    modify: function (req, res) {
+        var reqData = req.params.all();
+
+        if(req.isSocket && req.method === 'POST') {
+            //Receiving new content from the client
+            //Update pad contents
+            sails.log.info('modify triggered', reqData);
+            Pad.update({id: reqData.id}, {
+                lastEditor: reqData.lastEditor,
+                body: reqData.body,
+                title: reqData.title,
+                collaborators: reqData.collaborators,
+                viewMode: reqData.viewMode
+            })
+                .exec(function (e, result) {
+                    if (e) return sails.error(e);
+                    sails.log.info('pad updated', result);
+                    if (result[0]) {
+                        Pad.publishUpdate(result[0].id, result[0]);
+                        sails.log.info('pad update published', result[0].id);
+                    }
+                })
+        }
     }
+
 
 };
 

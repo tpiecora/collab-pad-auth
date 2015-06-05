@@ -1,9 +1,16 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
-      <label>Owner: {{pad.owner}}</label>
-      <label>Title: </label><input ng-model="pad.title" class="form-control" />
-      <ng-quill-editor ng-change="" ng-model="pad.body" toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" required="" error-class="input-error"></ng-quill-editor>
+    <div class="col-md-9">
+      <label>Title: </label><input ng-change="sendPad()" id="pad-title" ng-model="pad.title" class="form-control" />
+      <ng-quill-editor ng-change="sendPad()" ng-model="pad.body" toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" required="" error-class="input-error"></ng-quill-editor>
+    </div>
+    <div class="col-md-3">
+      <label>Owner:  </label>{{pad.owner}}
+      <br/>
+      <label>Collaborators:</label>
+      <ul>
+        <li ng-repeat="collaborator in pad.collaborators">{{collaborator}}</li>
+      </ul>
     </div>
   </div>
 </div>

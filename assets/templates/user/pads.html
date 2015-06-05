@@ -3,15 +3,14 @@
     <div class="col-md-4">
       <h2>Your documents:</h2>
       <ul class="list-group">
-        <li class="list-group-item" ng-repeat="pad in pads[0]">
-          <h3>{{pad.title}}</h3>
-          <ul>
-            <li class="pad-owner">{{pad.owner}}</li>
-            <li class="pad-collaborator" ng-repeat="collaborator in pad.collaborators">{{collaborator}}</li>
-          </ul>
-        <span class="badge">
-          <span class="delete-button" ng-click="deletePad(pad)">X</span>
-        </span>
+        <li class="list-group-item" ng-repeat="pad in pads[0] track by $index">
+          <a href="#/pad" ng-click="openUsersPad(pad)">
+            <h3>{{pad.title}}</h3>
+            <ul>
+              <li class="pad-owner">{{pad.owner}}</li>
+              <li class="pad-collaborator" ng-repeat="collaborator in pad.collaborators">{{collaborator}}</li>
+            </ul>
+          </a>
         </li>
       </ul>
     </div>
@@ -19,15 +18,14 @@
 
       <h2>Documents you are collaborating on:</h2>
       <ul class="list-group">
-        <li class="list-group-item" ng-repeat="pad in pads[1]">
-          <h3>{{pad.title}}</h3>
-          <ul>
-            <li class="pad-owner">{{pad.owner}}</li>
-            <li class="pad-collaborator" ng-repeat="collaborator in pad.collaborators">{{collaborator}}</li>
-          </ul>
-        <span class="badge">
-          <span class="delete-button" ng-click="deletePad(pad)">X</span>
-        </span>
+        <li class="list-group-item" ng-repeat="pad in pads[1] track by $index">
+          <a href="#/pad" ng-click="openOthersPad(pad)">
+            <h3>{{pad.title}}</h3>
+            <ul>
+              <li class="pad-owner">{{pad.owner}}</li>
+              <li class="pad-collaborator" ng-repeat="collaborator in pad.collaborators">{{collaborator}}</li>
+            </ul>
+          </a>
         </li>
       </ul>
     </div>
