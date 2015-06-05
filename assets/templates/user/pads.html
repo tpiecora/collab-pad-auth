@@ -1,21 +1,37 @@
 <div class="container">
   <div class="row">
-    <ul class="col-md-4 list-group">
-      <li class="list-group-item" ng-repeat="message in messages">
-        {{message.body}}
+    <div class="col-md-4">
+      <h2>Your documents:</h2>
+      <ul class="list-group">
+        <li class="list-group-item" ng-repeat="pad in pads[0]">
+          <h3>{{pad.title}}</h3>
+          <ul>
+            <li class="pad-owner">{{pad.owner}}</li>
+            <li class="pad-collaborator" ng-repeat="collaborator in pad.collaborators">{{collaborator}}</li>
+          </ul>
         <span class="badge">
-          <span class="delete-button" ng-click="deleteMessage(message)">X</span>
+          <span class="delete-button" ng-click="deletePad(pad)">X</span>
         </span>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4">
 
-    <form name="newMessageForm" novalidate class="col-md-4 form-inline">
-      <div class="input-group">
-        <input class="form-control" type="text" name="body" ng-model="newMessage" placeholder="New message">
-        <span class="input-group-btn">
-          <button class="btn btn-default btn-primary" ng-click="createMessage()">Create Message</button>
+      <h2>Documents you are collaborating on:</h2>
+      <ul class="list-group">
+        <li class="list-group-item" ng-repeat="pad in pads[1]">
+          <h3>{{pad.title}}</h3>
+          <ul>
+            <li class="pad-owner">{{pad.owner}}</li>
+            <li class="pad-collaborator" ng-repeat="collaborator in pad.collaborators">{{collaborator}}</li>
+          </ul>
+        <span class="badge">
+          <span class="delete-button" ng-click="deletePad(pad)">X</span>
         </span>
-      </div>
-    </form>
+        </li>
+      </ul>
+    </div>
+
+    <button ng-click="newPad()">New Pad</button>
   </div>
 </div>

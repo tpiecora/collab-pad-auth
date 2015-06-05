@@ -23,10 +23,10 @@ module.exports = {
       collection: 'message',
       via: 'user'
     },
-    pads: {
-      collection: 'pad',
-      via: 'user'
-    },
+  //  pads: {
+  //    collection: 'pad',
+  //    via: 'user'
+  //  },
     toJSON: function() {
       var obj = this.toObject();
       delete obj.encryptedPassword;

@@ -20,6 +20,10 @@ module.exports.policies = {
   // (`true` allows public access)
   '*': true,
 
+  'PadController': {
+    '*': true
+  },
+
   'UserController': {
     'add': ['tokenAuth', 'ownAssociations'],
     'create': true,

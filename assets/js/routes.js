@@ -38,9 +38,14 @@ angular.module('app')
             controller: 'MessagesController'
           })
           .state('user.pads', {
-            url: '/pads',
-            templateUrl: 'user/pads.html',
-            controller: 'PadsController'
+              url: '/pads',
+              templateUrl: 'user/pads.html',
+              controller: 'PadsController'
+          })
+          .state('user.pad', {
+              url: '/pad',
+              templateUrl: 'user/pad.html',
+              controller: 'PadController'
           })
       ;
 

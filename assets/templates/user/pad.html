@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <label>Owner: {{pad.owner}}</label>
+      <label>Title: </label><input ng-model="pad.title" class="form-control" />
+      <ng-quill-editor ng-change="" ng-model="pad.body" toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" required="" error-class="input-error"></ng-quill-editor>
+    </div>
+  </div>
+</div>

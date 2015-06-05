@@ -7,6 +7,8 @@
 
 module.exports = {
 
+  schema: true,
+
   attributes: {
     body: {
       type: 'string',
@@ -17,7 +19,8 @@ module.exports = {
       required: 'true'
     },
     owner: {
-      model: 'user'
+      type: 'string',
+      required: 'true'
     },
     collaborators: {
       type: 'array'
@@ -25,10 +28,11 @@ module.exports = {
     viewMode: {
       type: 'string',
       required: 'true'
-    }
+    },
     lastEditor: {
       type: 'string'
     }
   }
+
 };
 
