@@ -2,7 +2,7 @@
  * Created by michaelpiecora on 6/5/15.
  */
 angular.module('app')
-    .controller('PadsController', function ($scope, $log, Pads, CurrentUser) {
+    .controller('PadsController', function ($scope, $log, Pads, CurrentUser, $state) {
 
         io.socket.get('/pad/subscribe', {id: CurrentUser.user().email}, function(result) {
             $scope.pads = result;
@@ -30,17 +30,24 @@ angular.module('app')
                     collaborators: [],
                     viewMode: 'public',
                     lastEditor: CurrentUser.user().email
-                },
-                function(result) {
-                    if(result) {
-                        Pads.currentPad = result;
-                        $state.go('user.pad')
-                    }
                 }
             )
+            $state.go('user.pad');
         };
 
         io.socket.on('pad', function(obj) {
             console.log('received', obj)
         })
+
+        $scope.openUsersPad = function(pad) {
+            console.log(pad);
+            Pads.setCurrentPad(pad);
+            //$state.go('user.pad');
+        }
+
+        $scope.openOthersPad = function(pad) {
+            console.log(pad);
+            Pads.setCurrentPad(pad);
+            //$state.go('user.pad');
+        };
     });
