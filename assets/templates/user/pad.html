@@ -8,6 +8,11 @@
       <label>Owner:  </label>{{pad.owner}}
       <br/>
       <label>Collaborators:</label>
+      <form name="addCollaboratorForm">
+        <label for="add-input">Add someone:</label>
+        <input class="form-control" id="add-input" ng-model="newCollaborator" />
+        <button class="btn btn-sm btn-default" ng-click="addCollaborator(newCollaborator)">Add</button>
+      </form>
       <ul>
         <li ng-repeat="collaborator in pad.collaborators">{{collaborator}}</li>
       </ul>

@@ -1,18 +1,32 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      <h2>Your documents:</h2>
-      <ul class="list-group">
-        <li class="list-group-item" ng-repeat="pad in pads[0] track by $index">
-          <a href="#/pad" ng-click="openUsersPad(pad)">
-            <h3>{{pad.title}}</h3>
-            <ul>
-              <li class="pad-owner">{{pad.owner}}</li>
-              <li class="pad-collaborator" ng-repeat="collaborator in pad.collaborators">{{collaborator}}</li>
-            </ul>
-          </a>
-        </li>
-      </ul>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Your documents:</h2>
+          <button class="pad-new pull-right btn btn-success btn-sm" ng-click="newPad()">+</button>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <li class="" ng-repeat="pad in pads[0] track by $index">
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <a href="#/pad" ng-click="openUsersPad(pad)">
+                    <h3 class="panel-title">{{pad.title}}</h3>
+                  </a>
+                  <div class="pull-right pad-delete btn btn-sm btn-danger" ng-click="deletePad(pad)">x</div>
+                </div>
+                <div class="panel-body">
+                  <h5 ng-show="pad.collaborators[0]">Collaborators:</h5>
+                  <ul class="pad-collaborators">
+                    <li ng-repeat="collaborator in pad.collaborators">{{collaborator}}</li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
 
@@ -21,15 +35,14 @@
         <li class="list-group-item" ng-repeat="pad in pads[1] track by $index">
           <a href="#/pad" ng-click="openOthersPad(pad)">
             <h3>{{pad.title}}</h3>
-            <ul>
-              <li class="pad-owner">{{pad.owner}}</li>
-              <li class="pad-collaborator" ng-repeat="collaborator in pad.collaborators">{{collaborator}}</li>
-            </ul>
           </a>
+          <ul>
+            <li class="pad-owner">{{pad.owner}}</li>
+            <li class="pad-collaborator" ng-repeat="collaborator in pad.collaborators">{{collaborator}}</li>
+          </ul>
         </li>
       </ul>
     </div>
 
-    <button ng-click="newPad()">New Pad</button>
   </div>
 </div>

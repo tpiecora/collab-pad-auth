@@ -4,11 +4,14 @@
 angular.module('app')
     .controller('PadsController', function ($scope, $log, Pads, CurrentUser, $state) {
 
-        io.socket.get('/pad/subscribe', {id: CurrentUser.user().email}, function(result) {
-            $scope.pads = result;
-            $scope.$apply();
-            console.log(result);
-        });
+        function subscribe() {
+            io.socket.get('/pad/subscribe', {id: CurrentUser.user().email}, function(result) {
+                $scope.pads = result;
+                $scope.$apply();
+                console.log(result);
+            });
+        }
+        subscribe();
 
         Pads.getAll(function (result) {
             $scope.pads = result.data;
@@ -18,6 +21,7 @@ angular.module('app')
 
         $scope.deletePad = function (pad) {
             Pads.remove(pad);
+            subscribe();
         };
 
         $scope.newPad = function() {
@@ -36,6 +40,10 @@ angular.module('app')
         };
 
         io.socket.on('pad', function(obj) {
+            if(obj.verb === "destroyed") {
+                console.log('someone deleted a pad');
+                subscribe();
+            }
             console.log('received', obj)
         })
 
@@ -49,5 +57,9 @@ angular.module('app')
             console.log(pad);
             Pads.setCurrentPad(pad);
             //$state.go('user.pad');
+        };
+
+        $scope.deletePad = function(pad) {
+            Pads.remove(pad);
         };
     });

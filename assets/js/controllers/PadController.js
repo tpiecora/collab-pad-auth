@@ -38,4 +38,10 @@ angular.module('app')
             Pads.update($scope.pad);
             //io.socket.post('/pad/modify', $scope.data);
         };
+
+        $scope.addCollaborator = function(collaborator) {
+            $log.info('adding collaborator', collaborator);
+            $scope.pad.collaborators.push(collaborator);
+            $scope.sendPad();
+        };
     });

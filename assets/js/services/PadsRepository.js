@@ -24,8 +24,8 @@ angular.module('app')
                     }
                 });
             },
-            remove: function(id) {
-                return $http.delete('/pad/', {id: id});
+            remove: function(pad) {
+                io.socket.delete('/pad', pad)
             },
             update: function (pad) {
                 io.socket.post('/pad/modify', pad, function(result) {

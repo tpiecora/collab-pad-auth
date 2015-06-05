@@ -1,3 +1,6 @@
+a {
+    text-decoration: none;
+}
 
 .editor-container {
     border: 1px solid darkgray;
@@ -19,10 +22,67 @@
 #pad-title {
     margin-bottom: 5px;
 }
-/*
-input.form-control {
-    width: 30%;
-    margin: 5px;
-    display: inline;
+
+.list-group {
+    list-style-type: none;
 }
-*/
+.panel-heading {
+    position: relative;
+}
+.panel-title {
+    color: black
+}
+.panel-body {
+    padding: 5px;
+}
+.pad-list-wrap {
+    border: 1px solid darkgray;
+    border-radius: 5px;
+}
+
+.pad-list-title {
+    font-size: 1.5em;
+}
+.pad-new {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    top: 10px;
+    right: 15px;
+    padding: 5px;
+    line-height: 10px;
+}
+.pad-delete {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    line-height: 10px;
+    padding-bottom: 10px;
+    top: -1px;
+    right: -1px;
+    vertical-align: top;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+#add-input {
+    display: inline;
+    width: 75%;
+}
+
+.pad-collaborators {
+    width: auto;
+    height: auto;
+    padding: 0;
+}
+.pad-collaborators li {
+    display: inline;
+    position: relative;
+    margin: 3px;
+    padding: 5px;
+    border: 1px solid darkgray;
+    border-radius: 10px;
+    background: ghostwhite;
+    float: left;
+}
