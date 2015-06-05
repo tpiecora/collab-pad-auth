@@ -1,27 +1,6 @@
-# Angular Messages
+# Collab-Pad
 
-`Angular Messages` is a demo application to show how to implement `JWT` authentication with a `Sails` backend and an `Angular` frontend.
+`Collab-Pad` is a sample application that allows for live document collaboration.
+Users can create their own documents and invite others to participte with them, and can be invited by other users to participate in their documents.
 
-If you want to try it, you need to do the following:
-
-Install the latest `sails` beta if you don't have it:
-
-```
-$ sudo npm install -g sails@beta
-```
-
-Then, inside this app folder:
-
-```
-$ npm install
-$ sails lift
-```
-
-Register yourself and write some messages.
-
-### TODO:
-
-* Socket.io integration.
-* Maybe different levels of authorization (i.e admin).
-* Token expiration.
-* Write a proper article about JWT and another about this demo.
+This project was seeded with the excellent [sails-angular-jwt-example](https://github.com/Foxandxss/sails-angular-jwt-example), though sails and dependencies were updated to latest version.
