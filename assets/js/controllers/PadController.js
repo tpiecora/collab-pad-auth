@@ -2,33 +2,38 @@
  * Created by michaelpiecora on 6/5/15.
  */
 angular.module('app')
-    .controller('PadController', function ($scope, $log, Pads, CurrentUser, pad) {
+    .controller('PadController', function ($scope, $log, Pads, CurrentUser) {
         /*
-        $scope.pad = {
-            id: '',
-            body: '',
-            title: '',
-            owner: '',
-            collaborators: [],
-            viewMode: '',
-            lastEditor: ''
-        };
-        */
+         $scope.pad = {
+         id: '',
+         body: '',
+         title: '',
+         owner: '',
+         collaborators: [],
+         viewMode: '',
+         lastEditor: ''
+         };
+         */
         //console.log(Pads.currentPad);
         function getPad () {
-                $scope.pad = Pads.getCurrentPad();
-                //$scope.pad = pad;
-                console.log($scope.pad);
+            $scope.pad = Pads.getCurrentPad();
+            //$scope.pad = pad;
+            console.log($scope.pad);
 
         }
         getPad();
 
+        $scope.isOwner = function(owner) {
+            return CurrentUser.user().email === owner
+        };
+
+        // Pad Updates Handler
         io.socket.on('pad', function (obj) {
-            console.log(obj.data.lastEditor);
+            //console.log(obj.data.lastEditor);
             // Check if the updates received are from the current user and ignore them if they are
-            if(obj.data.lastEditor === CurrentUser.user().email) {
+            if(obj.verb === 'updated' && obj.data.lastEditor === CurrentUser.user().email) {
                 $log.info('received changes made by this user');
-            // update the pad with any changes made by other collaborators
+                // update the pad with any changes made by other collaborators
             } else if(obj.verb === 'updated' && obj.id === $scope.pad.id) {
                 $scope.pad = obj.data;
                 $log.info('content updated');
@@ -36,6 +41,21 @@ angular.module('app')
             }
             //$log.info('got an update', obj);
         });
+
+        // If Deleted While Collaborating Handler
+        io.socket.on('pad', function(obj) {
+            if(obj.verb === 'destroyed' && $scope.pad.id === obj.id) {
+                // TODO: Add modal that allows user to discard the deleted pad or create a copy of their own
+                console.log('The pad you are working on was deleted by the owner')
+            }
+        });
+
+        io.socket.on('remCollaborator', function(obj) {
+            if(obj === $scope.pad.id) {
+                // TODO: Add modal that allows user to discard the pad or create a copy of their own
+                console.log('You are no longer a collaborator on this pad')
+            }
+        })
 
         $scope.sendBody = function () {
             $scope.pad.lastEditor = CurrentUser.user().email;

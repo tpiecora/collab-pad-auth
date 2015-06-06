@@ -29,20 +29,30 @@
       </div>
     </div>
     <div class="col-md-4">
-
-      <h2>Documents you are collaborating on:</h2>
-      <ul class="list-group">
-        <li class="list-group-item" ng-repeat="pad in pads[1] track by $index">
-          <a href="#/pad" ng-click="openOthersPad(pad)">
-            <h3>{{pad.title}}</h3>
-          </a>
-          <ul>
-            <li class="pad-owner">{{pad.owner}}</li>
-            <li class="pad-collaborator" ng-repeat="collaborator in pad.collaborators track by $index">{{collaborator}}</li>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Documents you are collaborating on:</h2>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <li class="" ng-repeat="pad in pads[1] track by $index">
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <a href="#/pad" ng-click="openOthersPad(pad)">
+                    <h3 class="panel-title">{{pad.title}}</h3>
+                  </a>
+                </div>
+                <div class="panel-body">
+                  <ul>
+                    <li class="pad-owner">{{pad.owner}}</li>
+                    <li class="pad-collaborator" ng-repeat="collaborator in pad.collaborators track by $index">{{collaborator}}</li>
+                  </ul>
+                </div>
+              </div>
+            </li>
           </ul>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
-
   </div>
 </div>

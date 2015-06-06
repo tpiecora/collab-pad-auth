@@ -8,14 +8,14 @@
       <label>Owner:  </label>{{pad.owner}}
       <br/>
       <label>Collaborators:</label>
-      <form name="addCollaboratorForm">
+      <form ng-show="isOwner(pad.owner)" name="addCollaboratorForm">
         <label for="add-input">Add someone:</label>
         <input class="form-control" id="add-input" ng-model="newCollaborator" />
         <button class="btn btn-sm btn-default" ng-click="addCollaborator(newCollaborator)">Add</button>
       </form>
       <ul class="pad-collaborators">
         <li ng-mouseleave="showRemove=false" ng-mouseenter="showRemove=true" ng-repeat="collaborator in pad.collaborators track by $index">{{collaborator}}
-          <div ng-show="showRemove" class="pull-right pad-delete btn btn-sm btn-danger" ng-click="remCollaborator(collaborator)">x</div>
+          <div ng-show="showRemove && isOwner(pad.owner)" class="pull-right pad-delete btn btn-sm btn-danger" ng-click="remCollaborator(collaborator)">x</div>
         </li>
       </ul>
     </div>

@@ -60,15 +60,15 @@ angular.module('app')
             var checkIfHasPad = $scope.pads[1].indexOf(obj.id);
             checkIfHasPad === -1 ? $scope.pads[1].push(obj) : console.log('This user already has this pad');
             console.log('server invoked subscribe');
-            //subscribe();
+            subscribe();
         });
 
         io.socket.on('remCollaborator', function (obj) {
             console.log(obj);
             var checkIfHasPad = $scope.pads[1].indexOf(obj.id);
             checkIfHasPad !== -1 ? $scope.pads[1].splice(checkIfHasPad, 1) : console.log('This user does not have this pad');
-            console.log('server invoked subscribe');
-            //subscribe();
+            console.log('server invoked subscribe', obj);
+            subscribe();
         });
 
         $scope.openUsersPad = function(pad) {

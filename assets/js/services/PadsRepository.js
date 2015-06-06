@@ -11,6 +11,8 @@ angular.module('app')
             viewMode: '',
             lastEditor: ''
         };
+        var userPads = [];
+        var otherPads = [];
 
         return {
             getAll: function() {
@@ -62,6 +64,22 @@ angular.module('app')
             },
             setCurrentPad: function(pad) {
                 currentPad = pad;
+                //console.log(currentPad);
+            },
+            getUserPads: function() {
+                //console.log(currentPad);
+                return userPads;
+            },
+            setUserPads: function(pads) {
+                userPads = pads;
+                //console.log(currentPad);
+            },
+            getOtherPads: function() {
+                //console.log(currentPad);
+                return otherPads;
+            },
+            setOtherPads: function(pads) {
+                otherPads = pads;
                 //console.log(currentPad);
             }
         }

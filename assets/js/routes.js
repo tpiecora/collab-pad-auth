@@ -46,11 +46,6 @@ angular.module('app')
               url: '/pad',
               templateUrl: 'user/pad.html',
               controller: 'PadController',
-              resolve: {
-                  pad: function(Pads) {
-                      return Pads.getCurrentPad();
-                  }
-              }
           })
       ;
 
