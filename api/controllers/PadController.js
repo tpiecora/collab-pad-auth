@@ -126,9 +126,9 @@ module.exports = {
 
                         //console.log(result);
                         var rooms = sails.sockets.rooms();
-                        console.log(result, rooms, rooms.indexOf(result.userSocket));
+                        //console.log(result, rooms, rooms.indexOf(result.userSocket));
                         //if the added user is subscribed emit an update message to them
-                        if (result.userSocket && rooms.indexOf(result.userSocket) !== -1) {
+                        if (result && result.userSocket && rooms.indexOf(result.userSocket) !== -1) {
                             console.log('socket found, emitting');
                             sails.sockets.emit(result.userSocket, 'addCollaborator', pad);
                             //Pad.subscribe(result.socket, pad);
@@ -162,9 +162,9 @@ module.exports = {
 
                         //console.log(result);
                         var rooms = sails.sockets.rooms();
-                        console.log(result, rooms, rooms.indexOf(result.userSocket));
+                        //console.log(result, rooms, rooms.indexOf(result.userSocket));
                         //if the added user is subscribed emit an update message to them
-                        if (result.userSocket && rooms.indexOf(result.userSocket) !== -1) {
+                        if (result && result.userSocket && rooms.indexOf(result.userSocket) !== -1) {
                             console.log('socket found, emitting');
                             sails.sockets.emit(result.userSocket, 'remCollaborator', pad.id);
                             //Pad.subscribe(result.socket, pad);

@@ -15,7 +15,7 @@
       </form>
       <ul class="pad-collaborators">
         <li ng-mouseleave="showRemove=false" ng-mouseenter="showRemove=true" ng-repeat="collaborator in pad.collaborators track by $index">{{collaborator}}
-          <div ng-show="showRemove && isOwner(pad.owner)" class="pull-right pad-delete btn btn-sm btn-danger" ng-click="remCollaborator(collaborator)">x</div>
+          <div ng-show="showRemove && isOwner(pad.owner)" class="pull-right collaborator-delete btn btn-sm btn-danger" ng-click="remCollaborator(collaborator)">x</div>
         </li>
       </ul>
     </div>

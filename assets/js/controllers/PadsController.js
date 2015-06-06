@@ -17,7 +17,6 @@ angular.module('app')
             console.log('delete');
             $scope.pads[0].splice(i, 1);
             Pads.remove(pad);
-            //$scope.$apply();
         };
 
         $scope.newPad = function() {
@@ -31,6 +30,7 @@ angular.module('app')
                     lastEditor: CurrentUser.user().email
                 }
             );
+            // Using location.path changes because of ui-router bug with ngQuill
             $timeout(function() {
                 $location.path('/pad');
             },500)
@@ -41,13 +41,6 @@ angular.module('app')
                 console.log('someone deleted a pad');
                 subscribe();
             }
-            /*
-             if(obj.verb === "updated") {
-             console.log('someone this user as a collaborator');
-             subscribe();
-             }
-             */
-            console.log('received', obj)
         });
 
         io.socket.on('addCollaborator', function (obj) {

@@ -32,11 +32,6 @@ angular.module('app')
               access: AccessLevels.user
             }
           })
-          .state('user.messages', {
-            url: '/messages',
-            templateUrl: 'user/messages.html',
-            controller: 'MessagesController'
-          })
           .state('user.pads', {
               url: '/pads',
               templateUrl: 'user/pads.html',

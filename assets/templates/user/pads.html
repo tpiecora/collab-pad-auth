@@ -43,9 +43,10 @@
                   </a>
                 </div>
                 <div class="panel-body">
-                  <ul>
-                    <li class="pad-owner">{{pad.owner}}</li>
-                    <li class="pad-collaborator" ng-repeat="collaborator in pad.collaborators track by $index">{{collaborator}}</li>
+                    <h5>Owner: {{pad.owner}}</h5>
+                  <h5 ng-show="pad.collaborators[0]">Collaborators:</h5>
+                  <ul class="pad-collaborators">
+                    <li ng-repeat="collaborator in pad.collaborators track by $index">{{collaborator}}</li>
                   </ul>
                 </div>
               </div>
