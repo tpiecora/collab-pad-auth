@@ -19,6 +19,9 @@ module.exports = {
     encryptedPassword: {
       type: 'string'
     },
+    userSocket: {
+      type: 'string'
+    },
     messages: {
       collection: 'message',
       via: 'user'

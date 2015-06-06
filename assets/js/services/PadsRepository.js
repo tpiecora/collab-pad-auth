@@ -20,17 +20,39 @@ angular.module('app')
             create: function(pad) {
                 io.socket.post('/pad/create', pad, function(result) {
                     if(result) {
-                        self.currentPad = result;
+                        console.log('created', result);
+                        currentPad = result;
                     }
                 });
             },
             remove: function(pad) {
                 io.socket.delete('/pad', pad)
             },
-            update: function (pad) {
-                io.socket.post('/pad/modify', pad, function(result) {
+            updateTitle: function (pad) {
+                io.socket.post('/pad/updateTitle', pad, function(result) {
                     if(result) {
-                        self.currentPad = result;
+                        currentPad = result;
+                    }
+                })
+            },
+            updateBody: function (pad) {
+                io.socket.post('/pad/updateBody', pad, function(result) {
+                    if(result) {
+                        currentPad = result;
+                    }
+                })
+            },
+            addCollaborator: function(id, collaborator) {
+                io.socket.post('/pad/addcollaborator', {id: id, addCollaborator: collaborator}, function(result) {
+                    if (result) {
+                        currentPad = result;
+                    }
+                })
+            },
+            remCollaborator: function(id, collaborator) {
+                io.socket.post('/pad/remcollaborator', {id: id, remCollaborator: collaborator}, function(result) {
+                    if (result) {
+                        currentPad = result;
                     }
                 })
             },

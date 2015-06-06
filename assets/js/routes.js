@@ -45,7 +45,12 @@ angular.module('app')
           .state('user.pad', {
               url: '/pad',
               templateUrl: 'user/pad.html',
-              controller: 'PadController'
+              controller: 'PadController',
+              resolve: {
+                  pad: function(Pads) {
+                      return Pads.getCurrentPad();
+                  }
+              }
           })
       ;
 

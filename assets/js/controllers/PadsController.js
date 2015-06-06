@@ -2,7 +2,7 @@
  * Created by michaelpiecora on 6/5/15.
  */
 angular.module('app')
-    .controller('PadsController', function ($scope, $log, Pads, CurrentUser, $state) {
+    .controller('PadsController', function ($scope, $log, Pads, CurrentUser, $timeout, $location) {
 
         function subscribe() {
             io.socket.get('/pad/subscribe', {id: CurrentUser.user().email}, function(result) {
@@ -18,14 +18,14 @@ angular.module('app')
             console.log($scope.pads)
         });
 
-
-        $scope.deletePad = function (pad) {
+        $scope.deletePad = function (pad, i) {
+            console.log('delete');
+            $scope.pads[0].splice(i, 1);
             Pads.remove(pad);
-            subscribe();
+            //$scope.$apply();
         };
 
         $scope.newPad = function() {
-            console.log(CurrentUser.user());
             Pads.create(
                 {
                     body: 'Any changes made to this pad are seen instantly by all collaborators',
@@ -35,8 +35,10 @@ angular.module('app')
                     viewMode: 'public',
                     lastEditor: CurrentUser.user().email
                 }
-            )
-            $state.go('user.pad');
+            );
+            $timeout(function() {
+                $location.path('/pad');
+            },500)
         };
 
         io.socket.on('pad', function(obj) {
@@ -44,14 +46,36 @@ angular.module('app')
                 console.log('someone deleted a pad');
                 subscribe();
             }
+            /*
+             if(obj.verb === "updated") {
+             console.log('someone this user as a collaborator');
+             subscribe();
+             }
+             */
             console.log('received', obj)
-        })
+        });
+
+        io.socket.on('addCollaborator', function (obj) {
+            console.log(obj);
+            var checkIfHasPad = $scope.pads[1].indexOf(obj.id);
+            checkIfHasPad === -1 ? $scope.pads[1].push(obj) : console.log('This user already has this pad');
+            console.log('server invoked subscribe');
+            //subscribe();
+        });
+
+        io.socket.on('remCollaborator', function (obj) {
+            console.log(obj);
+            var checkIfHasPad = $scope.pads[1].indexOf(obj.id);
+            checkIfHasPad !== -1 ? $scope.pads[1].splice(checkIfHasPad, 1) : console.log('This user does not have this pad');
+            console.log('server invoked subscribe');
+            //subscribe();
+        });
 
         $scope.openUsersPad = function(pad) {
             console.log(pad);
             Pads.setCurrentPad(pad);
             //$state.go('user.pad');
-        }
+        };
 
         $scope.openOthersPad = function(pad) {
             console.log(pad);
@@ -59,7 +83,4 @@ angular.module('app')
             //$state.go('user.pad');
         };
 
-        $scope.deletePad = function(pad) {
-            Pads.remove(pad);
-        };
     });

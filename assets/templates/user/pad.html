@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-9">
-      <label>Title: </label><input ng-change="sendPad()" id="pad-title" ng-model="pad.title" class="form-control" />
-      <ng-quill-editor ng-change="sendPad()" ng-model="pad.body" toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" required="" error-class="input-error"></ng-quill-editor>
+      <label>Title: </label><input ng-change="sendTitle()" id="pad-title" ng-model="pad.title" class="form-control" />
+      <ng-quill-editor ng-change="sendBody()" ng-model="pad.body" toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" required="" error-class="input-error"></ng-quill-editor>
     </div>
     <div class="col-md-3">
       <label>Owner:  </label>{{pad.owner}}
@@ -13,8 +13,10 @@
         <input class="form-control" id="add-input" ng-model="newCollaborator" />
         <button class="btn btn-sm btn-default" ng-click="addCollaborator(newCollaborator)">Add</button>
       </form>
-      <ul>
-        <li ng-repeat="collaborator in pad.collaborators">{{collaborator}}</li>
+      <ul class="pad-collaborators">
+        <li ng-mouseleave="showRemove=false" ng-mouseenter="showRemove=true" ng-repeat="collaborator in pad.collaborators track by $index">{{collaborator}}
+          <div ng-show="showRemove" class="pull-right pad-delete btn btn-sm btn-danger" ng-click="remCollaborator(collaborator)">x</div>
+        </li>
       </ul>
     </div>
   </div>
