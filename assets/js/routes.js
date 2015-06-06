@@ -43,7 +43,7 @@ angular.module('app')
               controller: 'PadsController'
           })
           .state('user.pad', {
-              url: '/pad',
+              url: '/pad?id',
               templateUrl: 'user/pad.html',
               controller: 'PadController',
           })

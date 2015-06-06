@@ -2,7 +2,7 @@ angular.module('app')
     .factory('Pads', function($http, CurrentUser) {
         var self = this;
         var currentUser = CurrentUser.user;
-        var currentPad = {
+        currentPad = {
             id: '',
             body: '',
             title: '',
@@ -15,15 +15,11 @@ angular.module('app')
         var otherPads = [];
 
         return {
-            getAll: function() {
-                var id = currentUser().id;
-                io.socket.get('/pad/getallpads', {id: id});
-            },
             create: function(pad) {
                 io.socket.post('/pad/create', pad, function(result) {
                     if(result) {
                         console.log('created', result);
-                        currentPad = result;
+                     //   $localStorage.currentPad = result;
                     }
                 });
             },
@@ -33,38 +29,38 @@ angular.module('app')
             updateTitle: function (pad) {
                 io.socket.post('/pad/updateTitle', pad, function(result) {
                     if(result) {
-                        currentPad = result;
+                    //    $localStorage.currentPad = result;
                     }
                 })
             },
             updateBody: function (pad) {
                 io.socket.post('/pad/updateBody', pad, function(result) {
                     if(result) {
-                        currentPad = result;
+                    //    $localStorage.currentPad = result;
                     }
                 })
             },
             addCollaborator: function(id, collaborator) {
                 io.socket.post('/pad/addcollaborator', {id: id, addCollaborator: collaborator}, function(result) {
                     if (result) {
-                        currentPad = result;
+                    //    $localStorage.currentPad = result;
                     }
                 })
             },
             remCollaborator: function(id, collaborator) {
                 io.socket.post('/pad/remcollaborator', {id: id, remCollaborator: collaborator}, function(result) {
                     if (result) {
-                        currentPad = result;
+                    //    $localStorage.currentPad = result;
                     }
                 })
             },
             getCurrentPad: function() {
-                //console.log(currentPad);
-                return currentPad;
+                //console.log('current pad', $localStorage.currentPad);
+                //return $localStorage.currentPad;
             },
             setCurrentPad: function(pad) {
-                currentPad = pad;
-                //console.log(currentPad);
+                //$localStorage.currentPad = pad;
+                //console.log('current pad', $localStorage.currentPad);
             },
             getUserPads: function() {
                 //console.log(currentPad);

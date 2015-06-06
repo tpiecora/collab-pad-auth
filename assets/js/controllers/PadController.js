@@ -2,7 +2,7 @@
  * Created by michaelpiecora on 6/5/15.
  */
 angular.module('app')
-    .controller('PadController', function ($scope, $log, Pads, CurrentUser) {
+    .controller('PadController', function ($scope, $timeout, $log, Pads, CurrentUser, localStorageService) {
         /*
          $scope.pad = {
          id: '',
@@ -15,19 +15,27 @@ angular.module('app')
          };
          */
         //console.log(Pads.currentPad);
-        function getPad () {
-            $scope.pad = Pads.getCurrentPad();
-            //$scope.pad = pad;
+
+        $timeout(function() {
+            $scope.pad = localStorageService.get('currentPad');
             console.log($scope.pad);
+        },500);
+
+        function getPad () {
+            if (Pads.getCurrentPad()) {
+                console.log('got current pad', Pads.getCurrentPad());
+
+            }
+            //$scope.pad = pad;
 
         }
-        getPad();
+//getPad();
 
         $scope.isOwner = function(owner) {
             return CurrentUser.user().email === owner
         };
 
-        // Pad Updates Handler
+// Pad Updates Handler
         io.socket.on('pad', function (obj) {
             //console.log(obj.data.lastEditor);
             // Check if the updates received are from the current user and ignore them if they are
@@ -42,7 +50,7 @@ angular.module('app')
             //$log.info('got an update', obj);
         });
 
-        // If Deleted While Collaborating Handler
+// If Deleted While Collaborating Handler
         io.socket.on('pad', function(obj) {
             if(obj.verb === 'destroyed' && $scope.pad.id === obj.id) {
                 // TODO: Add modal that allows user to discard the deleted pad or create a copy of their own

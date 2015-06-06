@@ -2,7 +2,7 @@
  * Created by michaelpiecora on 6/5/15.
  */
 angular.module('app')
-    .controller('PadsController', function ($scope, $log, Pads, CurrentUser, $timeout, $location) {
+    .controller('PadsController', function ($rootScope, $scope, $log, Pads, CurrentUser, $timeout, $location, localStorageService) {
 
         function subscribe() {
             io.socket.get('/pad/subscribe', {id: CurrentUser.user().email}, function(result) {
@@ -12,11 +12,6 @@ angular.module('app')
             });
         }
         subscribe();
-
-        Pads.getAll(function (result) {
-            $scope.pads = result.data;
-            console.log($scope.pads)
-        });
 
         $scope.deletePad = function (pad, i) {
             console.log('delete');
@@ -72,15 +67,12 @@ angular.module('app')
         });
 
         $scope.openUsersPad = function(pad) {
-            console.log(pad);
-            Pads.setCurrentPad(pad);
-            //$state.go('user.pad');
+            localStorageService.set('currentPad', pad)
         };
 
         $scope.openOthersPad = function(pad) {
-            console.log(pad);
-            Pads.setCurrentPad(pad);
-            //$state.go('user.pad');
+            localStorageService.set('currentPad', pad)
+
         };
 
     });
