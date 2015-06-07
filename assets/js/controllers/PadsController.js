@@ -2,7 +2,7 @@
  * Created by michaelpiecora on 6/5/15.
  */
 angular.module('app')
-    .controller('PadsController', function ($rootScope, $scope, $log, Pads, CurrentUser, $timeout, $location, localStorageService) {
+    .controller('PadsController', ["$rootScope", "$scope", "$log", "Pads", "CurrentUser", "$timeout", "$location", "localStorageService", function ($rootScope, $scope, $log, Pads, CurrentUser, $timeout, $location, localStorageService) {
 
         function subscribe() {
             io.socket.get('/pad/subscribe', {id: CurrentUser.user().email}, function(result) {
@@ -68,4 +68,4 @@ angular.module('app')
 
         };
 
-    });
+    }]);

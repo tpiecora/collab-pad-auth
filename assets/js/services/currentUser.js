@@ -1,12 +1,12 @@
 angular.module('app')
-  .factory('CurrentUser', function(LocalService) {
+  .factory('CurrentUser', ["localStorageService", function(localStorageService) {
     return {
       user: function() {
-        if (LocalService.get('auth_token')) {
-          return angular.fromJson(LocalService.get('auth_token')).user;
+        if (localStorageService.get('auth_token')) {
+          return angular.fromJson(localStorageService.get('auth_token')).user;
         } else {
           return {};
         }
       }
     };
-  });
+  }]);

@@ -1,5 +1,5 @@
 angular.module('app')
-  .factory('Auth', function($http, LocalService, AccessLevels) {
+  .factory('Auth', ["$http", "localStorageService", "AccessLevels", function($http, localStorageService, AccessLevels) {
     return {
       authorize: function(access) {
         if (access === AccessLevels.user) {
@@ -9,37 +9,37 @@ angular.module('app')
         }
       },
       isAuthenticated: function() {
-        return LocalService.get('auth_token');
+        return localStorageService.get('auth_token');
       },
       login: function(credentials) {
         var login = $http.post('/auth/authenticate', credentials);
         login.success(function(result) {
-          LocalService.set('auth_token', JSON.stringify(result));
+          localStorageService.set('auth_token', JSON.stringify(result));
         });
         return login;
       },
       logout: function() {
         // The backend doesn't care about logouts, delete the token and you're good to go.
-        LocalService.unset('auth_token');
+        localStorageService.remove('auth_token');
       },
       register: function(formData) {
-        LocalService.unset('auth_token');
+        localStorageService.remove('auth_token');
         var register = $http.post('/auth/register', formData);
         register.success(function(result) {
-          LocalService.set('auth_token', JSON.stringify(result));
+          localStorageService.set('auth_token', JSON.stringify(result));
         });
         return register;
       }
     }
-  })
-  .factory('AuthInterceptor', function($q, $injector) {
-    var LocalService = $injector.get('LocalService');
+  }])
+  .factory('AuthInterceptor', ["$q", "$injector", function($q, $injector) {
+    var localStorageService = $injector.get('localStorageService');
 
     return {
       request: function(config) {
         var token;
-        if (LocalService.get('auth_token')) {
-          token = angular.fromJson(LocalService.get('auth_token')).token;
+        if (localStorageService.get('auth_token')) {
+          token = angular.fromJson(localStorageService.get('auth_token')).token;
         }
         if (token) {
           config.headers.Authorization = 'Bearer ' + token;
@@ -48,13 +48,13 @@ angular.module('app')
       },
       responseError: function(response) {
         if (response.status === 401 || response.status === 403) {
-          LocalService.unset('auth_token');
+          localStorageService.remove('auth_token');
           $injector.get('$state').go('anon.login');
         }
         return $q.reject(response);
       }
     }
-  })
-  .config(function($httpProvider) {
+  }])
+  .config(["$httpProvider", function($httpProvider) {
     $httpProvider.interceptors.push('AuthInterceptor');
-  });
+  }]);

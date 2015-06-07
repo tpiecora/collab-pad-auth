@@ -1,5 +1,5 @@
 angular.module('app')
-  .controller('NavController', function($scope, Auth, CurrentUser) {
+  .controller('NavController', ["$scope", "Auth", "CurrentUser", function($scope, Auth, CurrentUser) {
     $scope.isCollapsed = true;
     $scope.auth = Auth;
     $scope.user = CurrentUser.user;
@@ -7,4 +7,4 @@ angular.module('app')
     $scope.logout = function() {
       Auth.logout();
     }
-  });
+  }]);

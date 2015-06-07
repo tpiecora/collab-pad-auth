@@ -1,5 +1,5 @@
 angular.module('app')
-    .factory('Pads', function($http, CurrentUser, localStorageService) {
+    .factory('Pads', ["$http", "CurrentUser", "localStorageService", function($http, CurrentUser, localStorageService) {
         var self = this;
         var currentUser = CurrentUser.user;
 
@@ -48,4 +48,4 @@ angular.module('app')
             }
 
         };
-    });
+    }]);

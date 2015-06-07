@@ -2,8 +2,8 @@
  * Created by michaelpiecora on 6/5/15.
  */
 angular.module('app')
-    .controller('PadController', function ($scope, $timeout, $log, Pads, CurrentUser, localStorageService) {
-        /*
+    .controller('PadController', ["$scope", "$timeout", "$log", "Pads", "CurrentUser", "localStorageService", function ($scope, $timeout, $log, Pads, CurrentUser, localStorageService) {
+        /*  Pad Model
          $scope.pad = {
          id: '',
          body: '',
@@ -95,4 +95,4 @@ angular.module('app')
             $scope.pad.collaborators.splice($scope.pad.collaborators.indexOf(collaborator), 1);
             Pads.remCollaborator($scope.pad.id, collaborator);
         };
-    });
+    }]);

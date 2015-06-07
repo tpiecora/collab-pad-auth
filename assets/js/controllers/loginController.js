@@ -1,5 +1,5 @@
 angular.module('app')
-  .controller('LoginController', function($scope, $state, Auth) {
+  .controller('LoginController', ["$scope", "$state", "Auth", function($scope, $state, Auth) {
     $scope.errors = [];
 
     $scope.login = function() {
@@ -10,4 +10,4 @@ angular.module('app')
         $scope.errors.push(err);
       });
     }
-  });
+  }]);
