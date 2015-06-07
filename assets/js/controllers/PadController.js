@@ -2,7 +2,7 @@
  * Created by michaelpiecora on 6/5/15.
  */
 angular.module('app')
-    .controller('PadController', ["$scope", "$timeout", "$log", "Pads", "CurrentUser", "localStorageService", function ($scope, $timeout, $log, Pads, CurrentUser, localStorageService) {
+    .controller('PadController', ["$scope", "$state", "$timeout", "$log", "Pads", "CurrentUser", "localStorageService", function ($scope, $state, $timeout, $log, Pads, CurrentUser, localStorageService) {
         /*  Pad Model
          $scope.pad = {
          id: '',
