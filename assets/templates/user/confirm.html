@@ -1,0 +1,22 @@
+<div class="modal fade">
+    <div class="modal-dialog" autofocus tabindex="0" ui-keypress="{'enter': 'closeModal()'}">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="close('')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{title}}</h4>
+            </div>
+            <div class="modal-body">
+
+                <div>{{message}}</div>
+            </div>
+            <form ng-submit="close('Yes')">
+                <div class="modal-footer">
+                    <input type="hidden" />
+                    <button type="button" ng-click="close('')" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="button" sync-focus-with="isFocused" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

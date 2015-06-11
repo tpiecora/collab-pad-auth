@@ -73,7 +73,7 @@ module.exports = {
                 .exec(function (e, result) {
                     if (e) return sails.error(e);
 
-                    //sails.log.info('pad updated', result);
+                    sails.log.info('pad updated', result);
                     if (result[0]) {
                         Pad.publishUpdate(result[0].id, result[0]);
                         sails.log.info('pad update published', result[0].id);

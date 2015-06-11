@@ -2,7 +2,7 @@
  * Created by michaelpiecora on 6/5/15.
  */
 angular.module('app')
-    .controller('PadController', ["$scope", "$state", "$timeout", "$log", "Pads", "CurrentUser", "localStorageService", function ($scope, $state, $timeout, $log, Pads, CurrentUser, localStorageService) {
+    .controller('PadController', ["$scope", "$state", "$timeout", "$log", "Pads", "CurrentUser", "localStorageService", "PadModals", "ModalService", function ($scope, $state, $timeout, $log, Pads, CurrentUser, localStorageService, PadModals, ModalService) {
         /*  Pad Model
          $scope.pad = {
          id: '',
@@ -58,14 +58,40 @@ angular.module('app')
         io.socket.on('pad', function(obj) {
             if(obj.verb === 'destroyed' && $scope.pad.id === obj.id) {
                 // TODO: Add modal that allows user to discard the deleted pad or create a copy of their own
-                console.log('The pad you are working on was deleted by the owner')
+                //console.log('The pad you are working on was deleted by the owner')
+                var msg = "This pad has been deleted by the owner.\n\n Would you like to create a copy of it?";
+                PadModals.confirm(msg)
+                    .then(function(result) {
+                        if(result === 'Yes') {
+                            console.log('Yes triggered');
+                            $scope.pad.owner = CurrentUser.user().email;
+                            $scope.pad.collaborators = [];
+                            delete $scope.pad.id;
+                            console.log($scope.pad);
+                            Pads.create($scope.pad);
+                        }
+                        $state.go('user.pads');
+                    })
             }
         });
 
         io.socket.on('remCollaborator', function (obj) {
             if (obj === $scope.pad.id) {
                 // TODO: Add modal that allows user to discard the pad or create a copy of their own
-                console.log('You are no longer a collaborator on this pad')
+                //console.log('You are no longer a collaborator on this pad')
+                var msg = "You have been removed as a collaborator on this pad.\n\n Would you like to create a copy of it?";
+                PadModals.confirm(msg)
+                    .then(function(result) {
+                        if(result === 'Yes') {
+                            console.log('Yes triggered');
+                            $scope.pad.owner = CurrentUser.user().email;
+                            $scope.pad.collaborators = [];
+                            delete $scope.pad.id;
+                            console.log($scope.pad);
+                            Pads.create($scope.pad);
+                        }
+                        $state.go('user.pads');
+                    })
             }
         });
 

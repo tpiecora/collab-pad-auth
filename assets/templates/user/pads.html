@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 col-md-offset-2">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h2 class="panel-title">Your documents:</h2>
@@ -17,6 +17,7 @@
                   <div class="pull-right pad-delete btn btn-sm btn-danger" ng-click="deletePad(pad, $index)">x</div>
                 </div>
                 <div class="panel-body">
+                  <h5 ng-show="!pad.collaborators[0]">No other collaborators</h5>
                   <h5 ng-show="pad.collaborators[0]">Collaborators:</h5>
                   <ul class="pad-collaborators">
                     <li ng-repeat="collaborator in pad.collaborators track by $index">{{collaborator}}</li>

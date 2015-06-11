@@ -41,6 +41,10 @@ angular.module('app')
                 console.log('someone deleted a pad');
                 subscribe();
             }
+
+            if(obj.verb === "updated") {
+                subscribe();
+            }
         });
 
         io.socket.on('addCollaborator', function (obj) {
