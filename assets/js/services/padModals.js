@@ -1,7 +1,7 @@
 /**
  * Created by michaelpiecora on 4/21/15.
  */
-angular.module('app').factory('PadModals', function(ModalService, $q) {
+angular.module('app').factory('PadModals', ["ModalService", "$q", function(ModalService, $q) {
     var self = self;
     return {
         confirm: function (msg) {
@@ -23,4 +23,4 @@ angular.module('app').factory('PadModals', function(ModalService, $q) {
             return deferred.promise
         }
     }
-});
+}]);
